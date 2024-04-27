@@ -1,30 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SS Tube</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/4a7bf2abd5.js" crossorigin="anonymous"></script>
 </head>
+
 <body class="container mx-auto">
     <header class=" mt-10">
         <div class="flex justify-between">
             <img src="resources/Logo.png" alt="">
-        <button class="text-2xl px-3 py-3 bg-blue-500 rounded-md font-semibold text-white">Sort by views</button>
-        <button  id="btn_blogs" class="text-2xl px-3 py-3 bg-red-500 rounded-md font-semibold text-white">Blogs</button>
+            <button class="text-2xl px-3 py-3 bg-blue-500 rounded-md font-semibold text-white">Sort by views</button>
+            <button id="btn_blogs"
+                class="text-2xl px-3 py-3 bg-red-500 rounded-md font-semibold text-white">Blogs</button>
         </div>
         <hr class="mt-10 text-zinc-600 border-1">
     </header>
     <main>
         <div id="dynamicBtn" class="text-center">
             <!-- all dynamic button -->
-            <!-- <button class="px-4 py-3 bg-slate-400 rounded-md mt-4 text-center text-2xl font-semibold text-white">All</button>
-            <button class="px-4 py-3 bg-slate-400 rounded-md mt-4 text-center text-2xl font-semibold text-white">Music</button>
-            <button class="px-4 py-3 bg-slate-400 rounded-md mt-4 text-center text-2xl font-semibold text-white">Comedy</button>
-            <button class="px-4 py-3 bg-slate-400 rounded-md mt-4 text-center text-2xl font-semibold text-white">Drawing</button> -->
-            
+            <!-- <button  class="px-4 py-3 bg-slate-400 rounded-md mt-4 text-center text-2xl font-semibold text-white">All</button> -->
+
+
         </div>
+        <div id="cardContainer" class="grid grid-cols-1 lg:grid-cols-4 pt-10">
+    <!-- dynamic card -->
+            <!-- <div>
+                <div class="">
+                    <img class="rounded-md"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6BGolajWCctxXovX8Aubaonzr40uriZzm7VtSfAWPwQ&s"
+                        alt="">
+                </div>
+                <div class="space-y-2 flex gap-3 pt-4">
+                    <h2>img</h2>
+                    <div class="flex-1">
+                        <h1 class="text-2xl font-semibold">Building a Winning UX Strategy
+                            Using the Kano Model</h1>
+                        <div class="flex gap-4">
+                            <p>Awlad Hossain</p>
+                            <p><i class="fa-solid fa-certificate"></i></p>
+                        </div>
+                        <p>91K views</p>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+
     </main>
     <script src="js/utilities.js"></script>
 </body>
+
 </html>
