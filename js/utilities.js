@@ -38,10 +38,10 @@ const showAll = async(category_id) =>{
         const singleDiv = document.createElement('div')
         singleDiv.innerHTML=` <div>
                
-        <img class="rounded-md" src="${card.thumbnail}" alt="">
+        <img class="rounded-md h-60 w-96" src="${card.thumbnail}" alt="">
     
          <div class="space-y-2 flex gap-3 pt-4">
-        <img src="${card?.profile_picture}" alt="">
+         <img class="rounded-full w-14 h-14 mt-5 " src="${card.authors[0].profile_picture}" alt="">
         <div class="flex-1">
           <h1 class="text-2xl font-semibold">${card.title}</h1>
          <div class="flex gap-4">
