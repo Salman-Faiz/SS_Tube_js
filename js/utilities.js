@@ -27,10 +27,12 @@ loadData();
 
 const showAll = async (category_id = '1000') => {
     let cardData = [];
+    let sortDiv =[];
+    let views =[];
     let isEmpty = false;
     const response = await fetch(`https://openapi.programming-hero.com/api/videos/category/${category_id}`)
     const data = await response.json();
-    console.log(data.data);
+    // console.log(data.data);
     
    
     const cardDiv = document.getElementById('cardContainer')
@@ -41,14 +43,16 @@ const showAll = async (category_id = '1000') => {
         cardData = data.data; 
 
         cardData?.forEach(card => {
-            console.log(card);
+            // console.log(card);
             const singleDiv = document.createElement('div')
     
     
             singleDiv.innerHTML = ` <div>
-                   
-            <img class="rounded-md h-60 w-96" src="${card.thumbnail}" alt="">
-        
+
+            <div class="">
+                    <img class="rounded-md h-60 w-96" src="${card.thumbnail}" alt="">
+                        <h3 class="text-white font-bold text-end relative bottom-10 pe-10 rounded-sm">${card.others?.posted_date ? (card.others?.posted_date /60 )/60 :""}</h3>
+                </div>
              <div class="space-y-2 flex gap-3 pt-4">
              <img class="rounded-full w-14 h-14 mt-5 " src="${card.authors[0].profile_picture}" alt="">
             <div class="flex-1">
@@ -58,6 +62,7 @@ const showAll = async (category_id = '1000') => {
             <div> ${card.authors[0]?.verified ? "<i class='fa-solid fa-certificate'></i>":""}</div>
            </div>  
            <p>${card.others?.views}</p>
+           
             </div>
             </div>
             </div>`
@@ -75,15 +80,24 @@ const showAll = async (category_id = '1000') => {
         <img class="" src="resources/Icon.png" alt="">
         
       </div>
-      <h3 class="text-center">Opps ,There is no data available</h3>  `
+      <h3 class="text-center text-4xl font-bold">Opps ,There is no data available</h3>  `
         
 
         
     }
 
+  sortDiv = data.data;
+//   console.log('hello',sortDiv); 
+//   console.log('ffff',sortDiv[1].others?.views); 
+  sortDiv?.map(element => {
+  
+//    console.log(element.others.views);
    
-   
-   
+   views=element.others.views;
+  //  console.log(views);
+  views = sortDiv.toSorted();
+  console.log(views);
+  });
 }
 showAll();
 
