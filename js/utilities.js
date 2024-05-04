@@ -22,6 +22,8 @@ const showButtons = (data) => {
 
 loadData();
 
+
+
 // all btn show data
 
 const showAll = async (category_id = '1000') => {
@@ -30,7 +32,7 @@ const showAll = async (category_id = '1000') => {
   let isEmpty = false;
   const response = await fetch(`https://openapi.programming-hero.com/api/videos/category/${category_id}`)
   const data = await response.json();
-  sortByviews(data);
+  // sortByviews(data);
   // console.log(data.data);
   
 
@@ -73,12 +75,17 @@ const showAll = async (category_id = '1000') => {
       // <i class="fa-solid fa-certificate"></i>
       cardDiv.appendChild(singleDiv);
 
-      console.log(card)
+      // console.log(card)
 
 
     });
 
   }
+
+  else if(hello()){
+    console.log('hhhh')
+  }
+ 
   else {
     const errorDiv = document.getElementById('errorDiv')
 
@@ -97,13 +104,84 @@ const showAll = async (category_id = '1000') => {
 }
 showAll();
 
-const sortByviews = (data) =>{
+// const sortByviews = (data) =>{
 
-// console.log(data.data);
-const sortData =data.data.map(view => data.data.others?.views)
+// // console.log(data.data);
+// const sortData =data.data.map(view =>view.others?.views)
 
-console.log(sortData);
+// console.log(sortData);
+// // using spread operator before sorting
+// const sortedValues =[...sortData];
+
+// sortedValues.sort();
+// console.log(sortedValues);
+// // sortedValues.reverse();
+// // console.log(sortedValues);
+
+
+
+// }
+
+const hello = () =>{
+  console.log('hello');
+  const sortDiv =document.getElementById('cardContainer')
+  sortDiv.textContent='';
+  
+  const fetchDAta =async () => {
+
+    const response = await fetch(`https://openapi.programming-hero.com/api/videos/category/1000`)
+    const data = await response.json();
+    
+    // console.log(data.data);
+    const sortData =data.data.map(view =>view.others?.views)
+    
+    console.log(sortData);
+    // using spread operator before sorting
+    const sortedValues =[...sortData];
+    
+    sortedValues.sort();
+    console.log(sortedValues);
+    // sortedValues.reverse();
+    // console.log(sortedValues);
+    
+    sortedValues?.forEach(views => {
+
+  const sortSingleDiv = document.createElement('div')
+  sortSingleDiv.innerHTML = ` <div>
+  <div class="">
+      <img class="rounded-md"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6BGolajWCctxXovX8Aubaonzr40uriZzm7VtSfAWPwQ&s"
+          alt="">
+          <p class=" text-end relative bottom-10 pe-10">hello</p>
+  </div>
+  <div class="space-y-2 flex gap-4 pt-4">
+      
+           <img class="rounded-full w-14 h-14 mt-5 " src="https://i.ibb.co/D9wWRM6/olivia.jpg" alt="">
+          
+      
+     
+      <div class="flex-1">
+          <h1 class="text-2xl font-semibold">Building a Winning UX Strategy
+              Using the Kano Model</h1>
+          <div class="flex gap-4">
+              <p>Awlad Hossain</p>
+              <p><i class="fa-solid fa-certificate"></i></p>
+          </div>
+          <p>${views}</p>
+      </div>
+  </div>
+</div>`
+// <i class="fa-solid fa-certificate"></i>
+sortDiv.appendChild(sortSingleDiv);
+})
+// console.log(card)
+
 }
+fetchDAta();
+}
+
+
+
 
 
 
