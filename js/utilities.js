@@ -1,7 +1,8 @@
 const readBlogs = () => {
-  window.location.href = "http://127.0.0.1:5500/blogs.html"
+  window.location.assign('http://127.0.0.1:5500/blogs.html');
 
 }
+
 
 const loadData = async () => {
   const response = await fetch('https://openapi.programming-hero.com/api/videos/categories')
@@ -25,23 +26,28 @@ loadData();
 
 const showAll = async (category_id = '1000') => {
   let cardData = [];
-  let sortDiv = [];
-  let views = [];
+ 
   let isEmpty = false;
   const response = await fetch(`https://openapi.programming-hero.com/api/videos/category/${category_id}`)
   const data = await response.json();
+  sortByviews(data);
   // console.log(data.data);
-
+  
 
   const cardDiv = document.getElementById('cardContainer')
   // to prevent multiple clicks
-  cardDiv.textContent = '';
+   cardDiv.textContent = '';
+   errorDiv.textContent='';
+
+     
 
   if (data.status) {
     cardData = data.data;
 
+
     cardData?.forEach(card => {
       // console.log(card);
+      
       const singleDiv = document.createElement('div')
 
 
@@ -67,6 +73,9 @@ const showAll = async (category_id = '1000') => {
       // <i class="fa-solid fa-certificate"></i>
       cardDiv.appendChild(singleDiv);
 
+      console.log(card)
+
+
     });
 
   }
@@ -83,9 +92,18 @@ const showAll = async (category_id = '1000') => {
 
 
   }
+  
 
 }
 showAll();
+
+const sortByviews = (data) =>{
+
+// console.log(data.data);
+const sortData =data.data.map(view => data.data.others?.views)
+
+console.log(sortData);
+}
 
 
 
