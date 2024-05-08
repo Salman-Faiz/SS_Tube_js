@@ -115,6 +115,7 @@ const showAll = async (category_id = '1000') => {
 
 
   }
+  
 
 
 }
@@ -140,6 +141,8 @@ showAll();
 // sortByView on click 
 const sortByViews = () => {
   console.log('hello');
+  const errorDiv = document.getElementById('errorDiv');
+  errorDiv.innerHTML='';
   const sortDiv = document.getElementById('cardContainer');
   sortDiv.textContent = '';
 
