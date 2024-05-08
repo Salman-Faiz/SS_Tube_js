@@ -28,20 +28,20 @@ loadData();
 
 const showAll = async (category_id = '1000') => {
   let cardData = [];
- 
+
   let isEmpty = false;
   const response = await fetch(`https://openapi.programming-hero.com/api/videos/category/${category_id}`)
   const data = await response.json();
   // sortByviews(data);
   // console.log(data.data);
-  
+
 
   const cardDiv = document.getElementById('cardContainer')
   // to prevent multiple clicks
-   cardDiv.textContent = '';
-   errorDiv.textContent='';
+  cardDiv.textContent = '';
+  errorDiv.textContent = '';
 
-     
+
 
   if (data.status) {
     cardData = data.data;
@@ -49,7 +49,7 @@ const showAll = async (category_id = '1000') => {
 
     cardData?.forEach(card => {
       // console.log(card);
-      
+
       const singleDiv = document.createElement('div')
 
 
@@ -82,15 +82,11 @@ const showAll = async (category_id = '1000') => {
 
   }
 
-  else if(hello()){
-    console.log('hhhh')
-  }
- 
   else {
     const errorDiv = document.getElementById('errorDiv')
 
 
-    errorDiv.innerHTML = `  <div  class="flex justify-center align-center">
+    errorDiv.innerHTML = ` <div  class="flex justify-center align-center">
         <img class="" src="resources/Icon.png" alt="">
         
       </div>
@@ -99,7 +95,7 @@ const showAll = async (category_id = '1000') => {
 
 
   }
-  
+
 
 }
 showAll();
@@ -121,70 +117,59 @@ showAll();
 
 
 // }
-
-const hello = () =>{
+// sortByView on click 
+const hello = () => {
   console.log('hello');
-  const sortDiv =document.getElementById('cardContainer')
-  sortDiv.textContent='';
-  
-  const fetchDAta =async () => {
+  const sortDiv = document.getElementById('cardContainer');
+  sortDiv.textContent = '';
 
-    const response = await fetch(`https://openapi.programming-hero.com/api/videos/category/1000`)
+  const fetchData = async () => {
+    const response = await fetch('https:/openapi.programming-hero.com/api/videos/category/1000');
     const data = await response.json();
-    
-    // console.log(data.data);
-    const sortData =data.data.map(view =>view.others?.views)
-    
-    console.log(sortData);
-    // using spread operator before sorting
-    const sortedValues =[...sortData];
-    
-    sortedValues.sort();
-    console.log(sortedValues);
-    // sortedValues.reverse();
-    // console.log(sortedValues);
-    
-    sortedValues?.forEach(views => {
 
-  const sortSingleDiv = document.createElement('div')
-  sortSingleDiv.innerHTML = ` <div>
-  <div class="">
-      <img class="rounded-md"
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6BGolajWCctxXovX8Aubaonzr40uriZzm7VtSfAWPwQ&s"
-          alt="">
-          <p class=" text-end relative bottom-10 pe-10">hello</p>
-  </div>
-  <div class="space-y-2 flex gap-4 pt-4">
-      
-           <img class="rounded-full w-14 h-14 mt-5 " src="https://i.ibb.co/D9wWRM6/olivia.jpg" alt="">
-          
-      
-     
-      <div class="flex-1">
-          <h1 class="text-2xl font-semibold">Building a Winning UX Strategy
-              Using the Kano Model</h1>
-          <div class="flex gap-4">
-              <p>Awlad Hossain</p>
-              <p><i class="fa-solid fa-certificate"></i></p>
+    const videos = data.data;
+
+    console.log(videos);
+
+    // Function to convert views string to number
+    const convertViewsToNumber = (view) => {
+      const [number, unit] = view.split(/[,.]/);
+      let multiplier = 1;
+      if (unit === 'K') {
+        multiplier = 1000;
+      }
+      return parseFloat(number) * multiplier;
+    };
+
+    // Sort the videos by views
+    videos.sort((a, b) => convertViewsToNumber(b.others.views) - convertViewsToNumber(a.others.views));
+
+    videos.forEach(video => {
+      const sortSingleDiv = document.createElement('div');
+
+      sortSingleDiv.innerHTML = ` <div>
+
+      <div class="">
+              <img class="rounded-md h-60 w-96" src="${video.thumbnail}" alt="">
+                  <div class="text-white font-bold text-end relative bottom-10 pe-10 rounded-sm">${video.others?.posted_date ? (video.others?.posted_date / 60) / 60 : ""}</div>
           </div>
-          <p>${views}</p>
+       <div class="space-y-2 flex gap-3 pt-4">
+       <img class="rounded-full w-14 h-14 mt-5 " src="${video.authors[0].profile_picture}" alt="">
+      <div class="flex-1">
+        <h1 class="text-2xl font-semibold">${video.title}</h1>
+       <div id="blueVerified" class="flex gap-4">
+      <p>${video.authors[0].profile_name}</p>
+      <div> ${video.authors[0]?.verified ? "<i class='fa-solid fa-certificate'></i>" : ""}</div>
+     </div>  
+     <p>${video.others.views}</p>
+     
       </div>
-  </div>
-</div>`
-// <i class="fa-solid fa-certificate"></i>
-sortDiv.appendChild(sortSingleDiv);
-})
-// console.log(card)
-
-}
-fetchDAta();
-}
+      </div>
+      </div>`
 
 
-
-
-
-
-
-
-
+      sortDiv.appendChild(sortSingleDiv);
+    });
+  };
+  fetchData();
+};
