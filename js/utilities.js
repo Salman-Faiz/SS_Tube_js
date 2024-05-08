@@ -13,11 +13,28 @@ const loadData = async () => {
 const showButtons = (data) => {
   const dynamicBtn = document.getElementById('dynamicBtn');
   dynamicBtn.innerHTML = `
-      <button  onclick="showAll(${data?.data[0]?.category_id})" class="hover:bg-red-600 px-4 py-3 bg-slate-400 rounded-md mt-4 text-center text-2xl font-semibold                    text-white">${data?.data[0]?.category}</button>
-      <button onclick="showAll(${data?.data[1]?.category_id})" class="hover:bg-red-600 px-4 py-3 bg-slate-400 rounded-md mt-4 text-center text-2xl font-semibold text-white">${data?.data[1]?.category}</button>
-      <button onclick="showAll(${data?.data[2]?.category_id})" class="hover:bg-red-600 px-4 py-3 bg-slate-400 rounded-md mt-4 text-center text-2xl font-semibold text-white">${data?.data[2]?.category}</button>
-      <button onclick="showAll(${data?.data[3]?.category_id})" class="hover:bg-red-600 px-4 py-3 bg-slate-400 rounded-md mt-4 text-center text-2xl font-semibold text-white">${data?.data[3]?.category}</button>`;
+    <button id="0" onclick="showAll(${data?.data[0]?.category_id}, 0)" class="category-btn hover:bg-red-100 px-4 py-3 bg-slate-400 rounded-md mt-4 text-center text-2xl font-semibold text-white">${data?.data[0]?.category}</button>
+    <button id="1" onclick="showAll(${data?.data[1]?.category_id}, 1)" class="category-btn hover:bg-red-100 px-4 py-3 bg-slate-400 rounded-md mt-4 text-center text-2xl font-semibold text-white">${data?.data[1]?.category}</button>
+    <button id="2" onclick="showAll(${data?.data[2]?.category_id}, 2)" class="category-btn hover:bg-red-100 px-4 py-3 bg-slate-400 rounded-md mt-4 text-center text-2xl font-semibold text-white">${data?.data[2]?.category}</button>
+    <button id="3" onclick="showAll(${data?.data[3]?.category_id}, 3)" class="category-btn hover:bg-red-100 px-4 py-3 bg-slate-400 rounded-md mt-4 text-center text-2xl font-semibold text-white">${data?.data[3]?.category}</button>`;
 
+  // Add event listeners to each button
+  for (let i = 0; i < 4; i++) {
+    const button = document.getElementById(i);
+    button.addEventListener('click', () => {
+      // Remove 'active' class from all buttons
+      document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.classList.remove('active');
+        // Remove inline styles for all buttons
+        btn.style.backgroundColor = '';
+        btn.style.color = '';
+      });
+      // Add 'active' class and inline styles to the clicked button
+      button.classList.add('active');
+      button.style.backgroundColor = 'red'; // Change background color to represent active state
+      button.style.color = 'white'; // Change text color to represent active state
+    });
+  }
 }
 
 loadData();
@@ -136,12 +153,17 @@ const sortByViews = () => {
 
     // Function to convert views string to number
     const convertViewsToNumber = (view) => {
-      const [number, unit] = view.split(/[,.]/);
+      // Extract the last character (unit part) and the remaining string (numeric part)
+      const numericPart = view.slice(0, -1);
+      const unitPart = view.slice(-1);
+
       let multiplier = 1;
-      if (unit === 'K') {
+      if (unitPart === 'K') {
         multiplier = 1000;
       }
-      return parseFloat(number) * multiplier;
+
+      // Convert the numeric part to a number and multiply it by the multiplier
+      return parseFloat(numericPart) * multiplier;
     };
 
     // Sort the videos by views
