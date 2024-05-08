@@ -52,12 +52,11 @@ const showAll = async (category_id = '1000') => {
 
       const singleDiv = document.createElement('div')
 
-
       singleDiv.innerHTML = ` <div>
 
             <div class="">
                     <img class="rounded-md h-60 w-96" src="${card.thumbnail}" alt="">
-                        <div class="text-white font-bold text-end relative bottom-10 pe-10 rounded-sm">${card.others?.posted_date ? (card.others?.posted_date / 60) / 60 : ""}</div>
+                        <div class="text-white font-bold text-end relative bottom-10 pe-10 rounded-sm">${card.others?.posted_date ? ((card.others?.posted_date/60)/60).toFixed(2)+ ' hr' : ""}</div>
                 </div>
              <div class="space-y-2 flex gap-3 pt-4">
              <img class="rounded-full w-14 h-14 mt-5 " src="${card.authors[0].profile_picture}" alt="">
@@ -72,6 +71,10 @@ const showAll = async (category_id = '1000') => {
             </div>
             </div>
             </div>`
+
+          
+          
+         
       // <i class="fa-solid fa-certificate"></i>
       cardDiv.appendChild(singleDiv);
 
@@ -118,7 +121,7 @@ showAll();
 
 // }
 // sortByView on click 
-const hello = () => {
+const sortByViews = () => {
   console.log('hello');
   const sortDiv = document.getElementById('cardContainer');
   sortDiv.textContent = '';
@@ -151,7 +154,7 @@ const hello = () => {
 
       <div class="">
               <img class="rounded-md h-60 w-96" src="${video.thumbnail}" alt="">
-                  <div class="text-white font-bold text-end relative bottom-10 pe-10 rounded-sm">${video.others?.posted_date ? (video.others?.posted_date / 60) / 60 : ""}</div>
+                  <div class="text-white font-bold text-end relative bottom-10 pe-10 rounded-sm">${video.others?.posted_date ? ((video.others?.posted_date/60)/60).toFixed(2)+ ' hr' : ""}</div>
           </div>
        <div class="space-y-2 flex gap-3 pt-4">
        <img class="rounded-full w-14 h-14 mt-5 " src="${video.authors[0].profile_picture}" alt="">
